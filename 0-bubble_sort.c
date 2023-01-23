@@ -4,7 +4,7 @@ void swap(int *a, int *b);
 
 /**
  * bubble_sort - sorts an array of integers using
- * 		 the Bubble sort algorithm
+ * the Bubble sort algorithm
  * @array: The array to be sorted
  * @size: Number of items in @array
  */
@@ -26,8 +26,7 @@ void bubble_sort(int *array, size_t size)
 		}
 		if (swap_counter == 0)
 			break;
-		else
-			swap_counter = 0;
+		swap_counter = 0;
 	}
 }
 

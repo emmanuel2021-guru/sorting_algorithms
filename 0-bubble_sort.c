@@ -10,10 +10,17 @@ void swap(int *a, int *b);
  */
 void bubble_sort(int *array, size_t size)
 {
-	size_t i, j;
+	size_t i, j, equal_counter = 0;
 	int swap_counter = 0;
 
-	if (sizeof(array) >= 2)
+	for (i = 0; i < size; i++)
+	{
+		if (array[i] != array[0])
+			break;
+		else
+			equal_counter++;
+	}
+	if (sizeof(array) >= 2 && equal_counter != size)
 		for (i = 0; i < size; i++)
 		{
 			for (j = 0; j < size; j++)
@@ -24,10 +31,13 @@ void bubble_sort(int *array, size_t size)
 					swap_counter = 1;
 					print_array(array, size);
 				}
+				else
+					continue;
 			}
 			if (swap_counter == 0)
 				break;
-			swap_counter = 0;
+			else
+				swap_counter = 0;
 		}
 }
 

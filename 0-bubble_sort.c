@@ -10,18 +10,10 @@ void swap(int *a, int *b);
  */
 void bubble_sort(int *array, size_t size)
 {
-	size_t i, j, equal_counter = 0;
+	size_t i, j;
 	int swap_counter = 0;
 
-	for (i = 0; i < size; i++)
-	{
-		if (array[i] != array[0])
-			equal_counter += 0;
-		else
-			equal_counter++;
-	}
-	printf("ec: %lu\n", equal_counter);
-	if (sizeof(array) >= 2 && equal_counter != size)
+	if (sizeof(array) >= 2)
 		for (i = 0; i < size; i++)
 		{
 			for (j = 0; j < size && (j + 1) < size; j++)

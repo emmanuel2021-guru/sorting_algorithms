@@ -1,80 +1,120 @@
 #include "sort.h"
 
+int check_swap(listint_t **a, listint_t **b);
 void swap(listint_t **a, listint_t **b);
-int len_list(listint_t **list);
 
 /**
- * insertion_sort_list - Sorts a doubly linked list of integers
+ * insertion_sort_list - sorts a doubly linked list of integers
  * in ascending order using the insertion sort algorithm
- * @list: Doubly linked list to be sorted
+ * @list: a pointer to the first node of a doubly linked list
  */
 void insertion_sort_list(listint_t **list)
 {
-	int node_count = 0, list_len, i;
+	/*int node_counter = 1, i;*/
+	listint_t *current_node;
 
-	list_len = len_list(&(*list));
-	printf("%d\n", list_len);
-	while(node_count < list_len)
+	current_node = *list;
+	while (current_node != NULL)
 	{
-		if (node_count > 0)
+		printf("done\n");
+		if (current_node->n > current_node->next->n)
 		{
-			for (i = 0; i < node_count; i++)
-			{
-				(*list) = (*list)->next;
-			}
-		}
-		if ((*list)->n > (*list)->next->n)
-		{
-			swap(&(*list), &(*list)->next);
+			swap(&current_node, &current_node->next);
+			*list = current_node->next;
 			print_list(*list);
-			printf("FFF\n");
+			break;
 		}
-		printf("%d, %d\n", (*list)->n, (*list)->next->n);
-		if ((*list)->prev != NULL)
+		/*printf("done\n");
+		current_node = *list;
+		current_node = current_node->prev;
+		while (current_node != NULL)
 		{
-			while (!list)
+			printf("done2\n");
+			if (current_node->n > current_node->next->n)
 			{
-				(*list) = (*list)->prev;
-				if ((*list)->n > (*list)->next->n)
-				{
-					swap(&(*list), &(*list)->next);
-					print_list(*list);
-				}
+				swap(&current_node, &current_node->next);
+				*list = current_node->next;
+				print_list(*list);
 			}
+			current_node = current_node->prev;
 		}
-		node_count++;
+		node_counter++;
+		for (i = 0; i < node_counter; i++)
+		{
+			current_node = current_node->next;
+		}*/
 	}
 }
 
 /**
- * swap - Swaps nodes in doubly linked list
- * @a: first node to be swapped
- * @b: second node to be swapped
+ * swap - swaps the position of two nodes in a doubly linked list
+ * @a; First node to be swapped
+ * @b: Second node to be swapped
  */
 void swap(listint_t **a, listint_t **b)
 {
-	(*b)->prev = (*a)->prev;
-	(*a)->prev = (*b);
+	listint_t *temp;
 	(*a)->next = (*b)->next;
-	(*b)->next = (*a);
+	(*b)->next = *a;
+
+	if ((*a)->next != NULL)
+		(*a)->next->prev = *a;
+	if ((*b)->next != NULL)
+		(*b)->next->prev = *b;
+
+	temp = (*a)->prev;
+	(*a)->prev = (*b);
+	(*b)->prev = temp;
+
+	if ((*a)->prev != NULL)
+		(*a)->prev->next = *a;
+	if ((*b)->prev != NULL)
+		(*b)->prev->next = *b;
 }
 
 /**
- * len_list - finds the length of a list
- * @list: list whose length is to be found
- *
- * Return: the length of the list
+ * check_swap - checks if swap is needed and swaps the position of two nodes in a doubly linked list
+ * @a: First node to be swapped
+ * @b: Second node to be swapped
  */
-int len_list(listint_t **list)
+int check_swap(listint_t **a, listint_t **b)
 {
-	listint_t *head = (*list);
-	int count = 0;
+	int if_swap = 0;
 
-	while (head != NULL)
-	{
-		count++;
-		head = head->next;
+	if ((*a)->n > (*b)->n)
+	{	
+		/*printf("done1\n");
+		(*b)->prev = (*a)->prev;
+		if ((*a)->prev != NULL)
+		{
+			current_node = (*a)->prev;
+			current_node->next = (*b);
+			printf("done2\n");
+		}
+		(*a)->next = (*b)->next;
+		printf("done3\n");
+		if ((*b)->next != NULL)
+		{
+			printf("b-next not null\n");
+			current_node = (*b)->next;
+			printf("done4\n");
+			current_node->prev = (*a);
+			printf("done5\n");
+		}
+		printf("done6\n");
+		(*b)->next = *a;
+		printf("done7\n");
+		(*a)->prev = (*b);*/
+		if_swap = 1;
+		(*a)->next = (*b)->next;
+		printf("done1\n");
+		(*b)->next = *a;
+		printf("done2\n");
+		(*b)->prev = (*a)->prev;
+		printf("done3\n");
+		(*a)->prev = *b;
+		printf("done4\n");
+
 	}
-
-	return (count);
+	return (if_swap);
 }
